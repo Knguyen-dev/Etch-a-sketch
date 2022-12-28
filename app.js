@@ -14,3 +14,51 @@
 
 
 
+// Slider and Grid
+const sliderValueEl = document.querySelector('.slider-value');
+const sliderEl = document.querySelector('.slider');
+const gridEl = document.querySelector('.color-grid');
+
+
+function displaySliderValue(sliderValue) {
+  sliderValueEl.textContent = `${sliderValue} x ${sliderValue}`;
+}
+
+function displayGrid() {
+  // Get the slider value from the slider
+  const sliderValue = sliderEl.value;
+  // Calculate the amount of pixels or sections that'll be on the grid
+  const amount = sliderValue * sliderValue;
+  let gridItemsHTML = []; //Stores the html for the grid items
+
+  // Style the grid so that it fits the sections; both may not be necessary
+  gridEl.style.gridTemplateColumns = `repeat(${sliderValue}, 1fr)`;
+  gridEl.style.gridTemplateRows = `repeat(${sliderValue}, 1fr)`;
+
+  // Create the grid items and put them into an array
+  for (let x = 0; x < amount; x++) {    
+    gridItemsHTML.push(`<div class="grid-item"></div>`);
+  }
+  // Reset the html of the grid to the new items of the grid
+  gridEl.innerHTML = gridItemsHTML.join("");
+
+  // Display the new dimension of the grid on the slider section
+  displaySliderValue(sliderValue);
+
+  
+
+
+}
+
+sliderEl.addEventListener("input", displayGrid);
+gridEl.addEventListener('mousedown', function() {
+  const gridItems = document.querySelectorAll('.grid-item');
+  gridItems.forEach(function(item) {
+    item.addEventListener('mouseover', function() {
+      item.style.backGround = 'black';
+    })
+  })
+})
+
+
+window.addEventListener('DOMContentLoaded', displayGrid);

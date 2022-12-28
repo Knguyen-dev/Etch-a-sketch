@@ -88,6 +88,34 @@ header {
   font-size: 1.5rem;
   font-size: 1.5rem;
 }
+.slider-value {
+  text-align: center;
+}
+.slider {
+  width: 100%;
+  outline: none;
+  /* override the default look */
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 8px;
+  transition: var(--transition);
+  opacity: 0.7;
+  background-color: #d3dede;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  /* Change the appearance of the thumb; auto disappears so you have to explicitly
+  set the width and height */
+  width: 18px;
+  height: 18px;
+  overflow: visible;
+  background-color: var(--clr-grey-2);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.slider:hover {
+  opacity: 1;
+}
 .main-btn {
   background: transparent;
   padding: 1em 2em;
@@ -110,13 +138,11 @@ header {
 /* Grid section styling: Maybe do something 
 with repeat function depending on how many grids are wanted */
 .color-grid {
-  /* flex-basis: 70%; */
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+
   /* Ensures the size of the grid, and to ensure dimensions are equal */
-  min-height: 550px;
-  min-width: 550px;
-  aspect-ratio: 1;
+  height: 550px;
+  width: 550px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
   
 }
@@ -126,14 +152,14 @@ with repeat function depending on how many grids are wanted */
   /* Aspect ratio keeps the grid items square in measurement because the value of 
   an aspect ratio is the proportion of the width and the height if the proportion
   is one, then the width and height are equal since width/height = 1*/
-  aspect-ratio: 1;
+  /* aspect-ratio: 1; */
   
 }
 
 /* Footer stylings */
 footer {
-  background-color: var(--clr-primary-8);
-  color: var(--clr-grey-1);
+  background-color: var(--clr-primary-3);
+  color: var(--clr-white);
   text-align: center;
   padding: 1.5em 0;
   

@@ -20,31 +20,18 @@
       <section class="main">
         <section class="side-panel">
           <!-- Color picker -->
-          <div class="color-picker">Color picker</div>
+          <input type="color" id="colorPicker" value="#FFFFFF">
           <button class="main-btn" id="select-color-btn">Color</button>
           <button class="main-btn" id="rainbow-btn">Rainbow</button>
           <button class="main-btn" id="gradient-btn">Gradient</button>
           <button class="main-btn" id="eraser-btn">Eraser</button>
           <button class="main-btn" id="clear-btn">Clear</button>
           <div class="slider-container">
-            <h1>Slider value</h1>
-            <input type="range" min="1" max="64" value="1" class="slider" id="range-slider">
+            <h1 class="slider-value">Slider value</h1>
+            <input type="range" min="1" max="64" value="16" class="slider" id="range-slider">
           </div>
         </section>
-  
         <section class="color-grid">
-          <div class="grid-item">
-            a
-          </div>
-          <div class="grid-item">
-            a
-          </div>
-          <div class="grid-item">
-            a
-          </div>
-          <div class="grid-item">
-            a
-          </div>
         </section>
       </section>
   
@@ -57,5 +44,6 @@
       </footer>
 
     </section>
+    <script src="app.js"></script>
   </body>
 </html>
