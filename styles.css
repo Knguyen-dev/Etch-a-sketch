@@ -75,8 +75,9 @@ header {
 .main {
   padding: 1em 5em;
   display: flex;
-  gap: 10em;
+  gap: 12em;
   min-height: 500px;
+  justify-content: flex-start;
 }
 
 /* Side panel styling */
@@ -86,7 +87,6 @@ header {
   justify-content: space-evenly;
   font-size: 1.5rem;
   font-size: 1.5rem;
-  flex-basis: 15%;
 }
 .main-btn {
   background: transparent;
@@ -107,15 +107,26 @@ header {
   color: var(--clr-black);
 }
 
-/* Grid section styling */
+/* Grid section styling: Maybe do something 
+with repeat function depending on how many grids are wanted */
 .color-grid {
-  flex-basis: 60%;
+  /* flex-basis: 70%; */
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: repeat(2, 1fr);
+  /* Ensures the size of the grid, and to ensure dimensions are equal */
+  min-height: 550px;
+  min-width: 550px;
+  aspect-ratio: 1;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+  
 }
 
 .grid-item {
   border: 1px solid black;
+  /* Aspect ratio keeps the grid items square in measurement because the value of 
+  an aspect ratio is the proportion of the width and the height if the proportion
+  is one, then the width and height are equal since width/height = 1*/
+  aspect-ratio: 1;
   
 }
 
