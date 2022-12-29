@@ -50,7 +50,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: var(--ff-primary);
   font-size: 16px;
@@ -128,7 +127,7 @@ header {
 .slider:hover {
   opacity: 1;
 }
-.main-btn {
+.btn {
   background: transparent;
   padding: 1em 2em;
   border-style: solid;
@@ -137,35 +136,50 @@ header {
   letter-spacing: var(--spacing);
   transition: var(--transition);
 }
-.main-btn:hover {
+.btn:hover {
   background-color: var(--clr-grey-5);
   color: var(--clr-white);
 }
-.main-btn:focus {
+
+/* This class exists to tell us which of the four color buttons is being selected
+whether it be the color button, rainbow, gradient, or the eraser button. And only 
+one button should be selected at a time */
+.color-btn-selected {
   border-color: yellowgreen;
   background-color: lime;
   color: var(--clr-black);
 }
 
+/* This class indicates when the toggle button is on or off because the 
+indicator should stay on even when we are pressing other buttons */
+.toggle-btn-selected {
+  background: var(--clr-black);
+  color: var(--clr-white);
+  border-color: var(--clr-black);
+}
+
+/* Should only change color on the click, and once we click something off a clear
+button the 'clear button indicator' should go away */
+#clear-btn:focus {
+  background: var(--clr-black);
+  color: var(--clr-white);
+  border-color: var(--clr-black);
+}
+
+
+
 /* Grid section styling: Maybe do something 
 with repeat function depending on how many grids are wanted */
 .color-grid {
   display: grid;
-
   /* Ensures the size of the grid, and to ensure dimensions are equal */
   height: 550px;
   width: 550px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
   
 }
-
 .grid-item {
-  border: 1px solid black;
-  /* Aspect ratio keeps the grid items square in measurement because the value of 
-  an aspect ratio is the proportion of the width and the height if the proportion
-  is one, then the width and height are equal since width/height = 1*/
-  /* aspect-ratio: 1; */
-  
+  border: 1px solid black; 
 }
 
 /* Footer stylings */

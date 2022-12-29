@@ -8,9 +8,16 @@
 - If you pick clear the nit clears the board of colors, making everything white
 - There's also a slider at the bottom where you should be able to choose how many grids you want
 - Then have a copyright at the bottom 
-
 + Challenge after everything is done, try to make header an interactive grid that the user can hover over and see the different squares and colors
 */
+
+
+// Have a crack at the mouse down and hover effect first and then try to see how the person did it
+// Obviously the effect of clicking a single container and changing the color is simple, as setting an
+// event listener on the grid itself is simple; as well as this the hover effect is not the desired effect we want
+// so have a crack at it and if you don't get it try to see how he did it on the website.
+
+
 // Slider and Grid
 const sliderValueEl = document.querySelector('.slider-value');
 const sliderEl = document.querySelector('.slider');
@@ -19,6 +26,7 @@ const colorPickerEl = document.getElementById('colorPicker');
 const colorBtn = document.getElementById('select-color-btn');
 const toggleGridBtn = document.getElementById('toggle-grid');
 const clearGridBtn = document.getElementById('clear-btn');
+
 
 let selectedColor;
 
@@ -72,12 +80,14 @@ toggleGridBtn.addEventListener('click', function(e) {
   const gridItems = gridEl.querySelectorAll('.grid-item');
 
   if (gridState == 'on') {
+    toggleGridBtn.classList.add('toggle-btn-selected');
     // Turn off grid lines and set button's state attribute to off so that the next time the user selects it, it turns the lines back on
     gridItems.forEach(function(item) {
       item.style.border = 'none';
     });
     toggleGridBtn.setAttribute('data-state', 'off'); 
   } else {
+    toggleGridBtn.classList.remove('toggle-btn-selected');
     gridItems.forEach(function(item) {
       item.style.border = '1px solid black';
     });
