@@ -169,17 +169,21 @@ button the 'clear button indicator' should go away */
 
 
 /* Grid section styling: Maybe do something 
-with repeat function depending on how many grids are wanted */
+with repeat function depending on how many grids are wanted 
+- User select is there because I noticed that sometimes you were able to drag and select
+the divs, which inhibited the drawing functionality.
+*/
 .color-grid {
   display: grid;
   /* Ensures the size of the grid, and to ensure dimensions are equal */
   height: 550px;
   width: 550px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
-  
+  user-select: none;
 }
 .grid-item {
   border: 1px solid black; 
+  user-select: none;
 }
 
 /* Footer stylings */
