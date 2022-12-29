@@ -27,33 +27,15 @@ const colorBtns = document.querySelectorAll('.color-btn');
 const toggleGridBtn = document.getElementById('toggle-grid');
 const clearGridBtn = document.getElementById('clear-btn');
 
+// Footer logic
+const dateEl = document.getElementById('date');
+dateEl.textContent = new Date().getFullYear(); //Gets the current year;
+
 
 let selectedColor;
-let selectedButton = "";
-// Now with these buttons we will select the four (color, rainbow, gradient, and eraser)
-// For the first time. Then we will need make them listen to events, once a button is clicked
-// we visually select it and visually deselect other buttons. As well as this we store
-// the id of the selected button into a variable. Only one option can be selected at a time
-// So keep reassigning when clicked. 
 
-colorBtns.forEach(btn => {
-  btn.addEventListener('click', e => {
-    const btnID = e.currentTarget.dataset.id;
-    //if button is newly selected then visually and logically add
-    if (!btn.classList.contains('color-btn-selected')) {
-      selectedButton = btnID;
-      btn.classList.add('color-btn-selected'); //visually select button
-      colorBtns.forEach(item => {
-        if (item.dataset.id !== btnID) { //for the different buttons (differing id) delsect them
-          item.classList.remove('color-btn-selected');
-        }
-      })
-    } else {
-      selectedButton = ""; //clear the selectedButton variable since the user hasn't selected anything
-      btn.classList.remove('color-btn-selected'); //visually deselect the button that the user is clicking on since they want to deselect it
-    }
-  })
-});
+// Contains the dataset ids of the four color butons
+let selectedButton = "";
 
 // Would need to now link this to a change pixels function to manipulate the pixels
 
@@ -70,8 +52,39 @@ function set_color_value() {
   selectedColor = hexColor;
 }
 
+function set_rainbow_colors() {
+  const RAINBOW_HEX_VALUES = {
+    'A': 5
+  }; 
+};
+
+
 function displaySliderValue(sliderValue) {
   sliderValueEl.textContent = `${sliderValue} x ${sliderValue}`;
+}
+
+function clearGrid() {
+  const gridItems = document.querySelectorAll('.grid-item');
+  gridItems.forEach(function(item) {
+    item.style.background = 'white';
+  });
+}
+
+// Let the grid style persist even when rendering new grid
+// When rendering new grid we want to call a function that turns off the grid
+// Then for the toggleGridBtn we should probably make two functions and based on the 
+// data type probably we select whether its the turn on function or the turn off function
+function removeGridLines() {
+  const gridItems = gridEl.querySelectorAll('.grid-item');
+  gridItems.forEach(function(item) {
+    item.style.border = 'none';
+  })
+}
+function displayGridLines() {
+  const gridItems = gridEl.querySelectorAll('.grid-item');
+  gridItems.forEach(function(item) {
+    item.style.border = '1px solid black';
+  })
 }
 
 // Two to persist the grid lines, one is just getting the grid items after and calling a function
@@ -104,44 +117,68 @@ function displayGrid() {
   displaySliderValue(sliderValue);
 }
 
-function clearGrid() {
-  const gridItems = document.querySelectorAll('.grid-item');
-  gridItems.forEach(function(item) {
-    item.style.background = 'white';
-  });
+
+/*
+- Function that handles how a specific grid pixel will be manipulated or changed, whether it be
+that its colored in, erased, used with rainbow or gradiented. Handle the hole of if there are
+no buttons selected
+*/
+
+function changeGridPixel(e) {
+  const currentPixel = e.currentTarget;
+  switch(selectedButton) {
+    case "select-color":
+      currentPixel.style.background = selectedColor;
+      break;
+    case "rainbow":
+      console.log("Rainbow was selected but nothing");
+      break;
+    case "gradient":
+      console.log("Gradient was selected but nothing");
+      break;
+    case "eraser":
+      currentPixel.style.background = "white";
+      break;
+    // the selectedButton variable is an empty string when none of the four color buttons are selected
+    // this would mean that just nothing happens
+  }
 }
 
-// Let the grid style persist even when rendering new grid
-// When rendering new grid we want to call a function that turns off the grid
-// Then for the toggleGridBtn we should probably make two functions and based on the 
-// data type probably we select whether its the turn on function or the turn off function
-function removeGridLines() {
+function toggleGridEventListener(e) {
   const gridItems = gridEl.querySelectorAll('.grid-item');
-  gridItems.forEach(function(item) {
-    item.style.border = 'none';
+  if (e.type == "mousedown") {
+    gridItems.forEach(function(item) {
+      item.addEventListener('mouseover', changeGridPixel);
+    })
+  } else if (e.type == "mouseup") {
+    gridItems.forEach(function(item){
+      item.removeEventListener('mouseover', changeGridPixel);
+    })
+  }
+}
+
+colorBtns.forEach(btn => {
+  btn.addEventListener('click', e => {
+    const btnID = e.currentTarget.dataset.id;
+    //if button is newly selected then visually and logically add
+    if (!btn.classList.contains('color-btn-selected')) {
+      selectedButton = btnID;
+      btn.classList.add('color-btn-selected'); //visually select button
+      colorBtns.forEach(item => {
+        if (item.dataset.id !== btnID) { //for the different buttons (differing id) delsect them
+          item.classList.remove('color-btn-selected');
+        }
+      })
+    } else {
+      selectedButton = ""; //clear the selectedButton variable since the user hasn't selected anything
+      btn.classList.remove('color-btn-selected'); //visually deselect the button that the user is clicking on since they want to deselect it
+    }
   })
-}
-function displayGridLines() {
-  const gridItems = gridEl.querySelectorAll('.grid-item');
-  gridItems.forEach(function(item) {
-    item.style.border = '1px solid black';
-  })
-}
-/*
-- Function that handles filling in the colors for each individual grid pixel
-- The event being passed is the div or pixel in the grid that 
-- We should
-*/
-function changeGridPixel(e) {
-  const currentPixel = e.currentTarget; 
-  currentPixel.style.background = selectedColor;
-}
+});
 
 sliderEl.addEventListener("input", displayGrid);
 colorPickerEl.addEventListener("input", set_color_value);
 clearGridBtn.addEventListener('click', clearGrid);
-
-
 
 // Data attribute state: When it's value is 'on' then the grid lines should be showing
 // When the attribute is 'off' then the grid lines are not being shown
@@ -158,19 +195,6 @@ toggleGridBtn.addEventListener('click', function(e) {
     toggleGridBtn.setAttribute('data-state', 'on');
   }
 });
-
-function toggleGridEventListener(e) {
-  const gridItems = gridEl.querySelectorAll('.grid-item');
-  if (e.type == "mousedown") {
-    gridItems.forEach(function(item) {
-      item.addEventListener('mouseover', changeGridPixel);
-    })
-  } else if (e.type == "mouseup") {
-    gridItems.forEach(function(item){
-      item.removeEventListener('mouseover', changeGridPixel);
-    })
-  }
-}
 
 window.addEventListener('mousedown', toggleGridEventListener);
 window.addEventListener('mouseup', toggleGridEventListener);

@@ -65,6 +65,7 @@ header {
   color: var(--clr-white);
   text-align: center;
   padding: 2em 0;
+  user-select: none;
 }
 .title {
   font-size: 3rem;
@@ -184,6 +185,7 @@ the divs, which inhibited the drawing functionality.
 .grid-item {
   border: 1px solid black; 
   user-select: none;
+  transition: var(--transition);
 }
 
 /* Footer stylings */
