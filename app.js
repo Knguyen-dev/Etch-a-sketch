@@ -17,13 +17,18 @@ const sliderEl = document.querySelector('.slider');
 const gridEl = document.querySelector('.color-grid');
 const colorPickerEl = document.getElementById('colorPicker');
 const colorBtn = document.getElementById('select-color-btn');
+const toggleGridBtn = document.getElementById('toggle-grid');
+const clearGridBtn = document.getElementById('clear-btn');
 
-// Calls functions to create and invert rgb color values
-// Then styles the color button based on these colors
+let selectedColor;
+
+//Gets hex color and displays it on the color button.
+//Stores the color into selectedColors for further usage.
 function display_color_value() {
-  colorBtn.textContent = colorPickerEl.value;
+  const hexColor = colorPickerEl.value;
+  colorBtn.textContent = hexColor;
+  selectedColor = hexColor;
 }
-
 
 function displaySliderValue(sliderValue) {
   sliderValueEl.textContent = `${sliderValue} x ${sliderValue}`;
@@ -50,8 +55,28 @@ function displayGrid() {
   // Display the new dimension of the grid on the slider section
   displaySliderValue(sliderValue);
 }
+
 sliderEl.addEventListener("input", displayGrid);
 colorPickerEl.addEventListener("input", display_color_value);
+toggleGridBtn.addEventListener('click', function(e) {
+  const gridState = e.currentTarget.dataset.state;  
+  const gridItems = gridEl.querySelectorAll('.grid-item');
+
+  if (gridState == 'on') {
+    // Turn off grid lines and set button's state attribute to off so that the next time the user selects it, it turns the lines back on
+    gridItems.forEach(function(item) {
+      item.style.border = 'none';
+    })
+    toggleGridBtn.setAttribute('data-state', 'off'); 
+  } else {
+    gridItems.forEach(function(item) {
+      item.style.border = '1px solid black';
+    })
+    toggleGridBtn.setAttribute('data-state', 'on');
+  }
+});
+
+
 
 window.addEventListener('DOMContentLoaded', function() {
   displayGrid();
