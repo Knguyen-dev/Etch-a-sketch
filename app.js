@@ -11,38 +11,32 @@
 + Challenge after everything is done, try to make header an interactive grid that the user can hover over and see the different squares and colors
 */
 
-
-// Have a crack at the mouse down and hover effect first and then try to see how the person did it
-// Obviously the effect of clicking a single container and changing the color is simple, as setting an
-// event listener on the grid itself is simple; as well as this the hover effect is not the desired effect we want
-// so have a crack at it and if you don't get it try to see how he did it on the website.
-
+// Going to have to figure out how to import this later
+// import * as myColorModule from "./color_conversion.js";
+import {convert_to_RGB, convert_to_hex} from "./color_conversion";
 
 // Slider and Grid
 const sliderValueEl = document.querySelector('.slider-value');
 const sliderEl = document.querySelector('.slider');
 const gridEl = document.querySelector('.color-grid');
-const colorPickerEl = document.getElementById('colorPicker');
-const colorBtns = document.querySelectorAll('.color-btn');
 const toggleGridBtn = document.getElementById('toggle-grid');
 const clearGridBtn = document.getElementById('clear-btn');
+
+// Contains the dataset ids of the four color butons
+const colorPickerEl = document.getElementById('colorPicker');
+const colorBtns = document.querySelectorAll('.color-btn');
+let selectedButton = "";
+let selectedColor;
+let rainbowIndex = 0; //index position that accesses rainbow color hex values;
 
 // Footer logic
 const dateEl = document.getElementById('date');
 dateEl.textContent = new Date().getFullYear(); //Gets the current year;
 
 
-let selectedColor;
-
-// Contains the dataset ids of the four color butons
-let selectedButton = "";
-
-// Would need to now link this to a change pixels function to manipulate the pixels
-
 //Gets hex color and displays it on the color button.
-//Stores the color into selectedColors for further usage.
-function set_color_value() {
-  const hexColor = colorPickerEl.value;
+//Stores the color into selectedColors in case the user wants to use the select colors button.
+function set_color_value(hexColor) {
   // Find the select Color button in the button list
   colorBtns.forEach(btn => {
     if (btn.dataset.id == "select-color") {
@@ -52,12 +46,26 @@ function set_color_value() {
   selectedColor = hexColor;
 }
 
-function set_rainbow_colors() {
-  const RAINBOW_HEX_VALUES = {
-    'A': 5
-  }; 
+
+function set_rainbow_colors(pixel) {
+  // Hex values of red, orange, yellow, green, blue, indigo, and violet respectively
+  const RAINBOW_HEX_VALUES = ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#8F00FF"];
+  const RAINBOW_COLOR = RAINBOW_HEX_VALUES[rainbowIndex];
+  pixel.style.background = RAINBOW_COLOR;
+  rainbowIndex += 1;
+  if (rainbowIndex > RAINBOW_HEX_VALUES.length - 1) {
+    rainbowIndex = 0;
+  }
+  // Let's try to update the color button to show the hex codes of the rainbow colors
+  set_color_value(RAINBOW_COLOR);
 };
 
+
+
+
+// function set_gradient_colors(pixel) {
+
+// };
 
 function displaySliderValue(sliderValue) {
   sliderValueEl.textContent = `${sliderValue} x ${sliderValue}`;
@@ -106,7 +114,6 @@ function displayGrid() {
   }
   // Reset the html of the grid to the new items of the grid
   gridEl.innerHTML = gridItemsHTML.join("");
-  
   // Persists the style of the grid in this newly generated grid
   if (toggleGridBtn.dataset.state == "on") {
     displayGridLines();
@@ -131,10 +138,10 @@ function changeGridPixel(e) {
       currentPixel.style.background = selectedColor;
       break;
     case "rainbow":
-      console.log("Rainbow was selected but nothing");
+      set_rainbow_colors(currentPixel);
       break;
     case "gradient":
-      console.log("Gradient was selected but nothing");
+      set_gradient_colors(currentPixel);
       break;
     case "eraser":
       currentPixel.style.background = "white";
@@ -177,7 +184,9 @@ colorBtns.forEach(btn => {
 });
 
 sliderEl.addEventListener("input", displayGrid);
-colorPickerEl.addEventListener("input", set_color_value);
+colorPickerEl.addEventListener("input", () => {
+  set_color_value(colorPickerEl.value);
+});
 clearGridBtn.addEventListener('click', clearGrid);
 
 // Data attribute state: When it's value is 'on' then the grid lines should be showing
@@ -200,5 +209,5 @@ window.addEventListener('mousedown', toggleGridEventListener);
 window.addEventListener('mouseup', toggleGridEventListener);
 window.addEventListener('DOMContentLoaded', function() {
   displayGrid();
-  set_color_value();
+  set_color_value(colorPickerEl.value);
 });
