@@ -88,6 +88,18 @@ header {
   font-size: 1.5rem;
   font-size: 1.5rem;
 }
+
+.color-picker {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border: none;
+  /* align the color picker to the center to center it with the other
+  buttons in the flex container (side-panel)  */
+  align-self: center; 
+  box-shadow: 5px -5px 0 rgba(0, 0, 0, 0.2);
+}
+
 .slider-value {
   text-align: center;
 }

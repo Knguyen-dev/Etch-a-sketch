@@ -11,13 +11,18 @@
 
 + Challenge after everything is done, try to make header an interactive grid that the user can hover over and see the different squares and colors
 */
-
-
-
 // Slider and Grid
 const sliderValueEl = document.querySelector('.slider-value');
 const sliderEl = document.querySelector('.slider');
 const gridEl = document.querySelector('.color-grid');
+const colorPickerEl = document.getElementById('colorPicker');
+const colorBtn = document.getElementById('select-color-btn');
+
+// Calls functions to create and invert rgb color values
+// Then styles the color button based on these colors
+function display_color_value() {
+  colorBtn.textContent = colorPickerEl.value;
+}
 
 
 function displaySliderValue(sliderValue) {
@@ -44,21 +49,11 @@ function displayGrid() {
 
   // Display the new dimension of the grid on the slider section
   displaySliderValue(sliderValue);
-
-  
-
-
 }
-
 sliderEl.addEventListener("input", displayGrid);
-gridEl.addEventListener('mousedown', function() {
-  const gridItems = document.querySelectorAll('.grid-item');
-  gridItems.forEach(function(item) {
-    item.addEventListener('mouseover', function() {
-      item.style.backGround = 'black';
-    })
-  })
-})
+colorPickerEl.addEventListener("input", display_color_value);
 
-
-window.addEventListener('DOMContentLoaded', displayGrid);
+window.addEventListener('DOMContentLoaded', function() {
+  displayGrid();
+  display_color_value();
+});
