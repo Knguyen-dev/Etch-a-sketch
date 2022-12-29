@@ -56,8 +56,17 @@ function displayGrid() {
   displaySliderValue(sliderValue);
 }
 
+function clearGrid() {
+  const gridItems = document.querySelectorAll('.grid-item');
+  gridItems.forEach(function(item) {
+    item.style.background = 'white';
+  });
+}
+
 sliderEl.addEventListener("input", displayGrid);
 colorPickerEl.addEventListener("input", display_color_value);
+clearGridBtn.addEventListener('click', clearGrid);
+
 toggleGridBtn.addEventListener('click', function(e) {
   const gridState = e.currentTarget.dataset.state;  
   const gridItems = gridEl.querySelectorAll('.grid-item');
@@ -66,12 +75,12 @@ toggleGridBtn.addEventListener('click', function(e) {
     // Turn off grid lines and set button's state attribute to off so that the next time the user selects it, it turns the lines back on
     gridItems.forEach(function(item) {
       item.style.border = 'none';
-    })
+    });
     toggleGridBtn.setAttribute('data-state', 'off'); 
   } else {
     gridItems.forEach(function(item) {
       item.style.border = '1px solid black';
-    })
+    });
     toggleGridBtn.setAttribute('data-state', 'on');
   }
 });
