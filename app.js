@@ -55,6 +55,8 @@ colorBtns.forEach(btn => {
   })
 });
 
+// Would need to now link this to a change pixels function to manipulate the pixels
+
 //Gets hex color and displays it on the color button.
 //Stores the color into selectedColors for further usage.
 function set_color_value() {
@@ -141,15 +143,17 @@ clearGridBtn.addEventListener('click', clearGrid);
 
 
 
+// Data attribute state: When it's value is 'on' then the grid lines should be showing
+// When the attribute is 'off' then the grid lines are not being shown
 toggleGridBtn.addEventListener('click', function(e) {
   const gridState = e.currentTarget.dataset.state;  
   const gridItems = gridEl.querySelectorAll('.grid-item');
   if (gridState == 'on') {
-    toggleGridBtn.classList.add('toggle-btn-selected');
+    toggleGridBtn.classList.remove('toggle-btn-selected');
     removeGridLines();
     toggleGridBtn.setAttribute('data-state', 'off'); 
   } else {
-    toggleGridBtn.classList.remove('toggle-btn-selected');
+    toggleGridBtn.classList.add('toggle-btn-selected');
     displayGridLines();
     toggleGridBtn.setAttribute('data-state', 'on');
   }
