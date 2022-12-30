@@ -1,3 +1,6 @@
+
+
+// RGB Color Manipulation Section:
 function convert_to_RGB(hexColor) {
   const hexValues = {
     '0': 0,
@@ -29,7 +32,7 @@ function convert_to_RGB(hexColor) {
   let RGB_values = []; 
   let hexPosition = 1;  
   let sum = 0;   
-  hexColor.slice(1);
+  hexColor = hexColor.slice(1);
   // Loop through all hex digits
   for (let i = 0; i < hexColor.length; i++) {
     sum += hexValues[hexColor[i]] * Math.pow(16, hexPosition); //Do hex multiplication
@@ -75,14 +78,17 @@ function convert_to_hex(RGB_values) {
     }
   
     // hex components are in form xx xx xx, if only one of those 3 components only evaluates to 1 digits
-    // Then we need to add a zero when converting
-    if (hex_digits.length < 2) {
+    // Then we need to add zeros when converting, especially when an rgb component is equal to 0, we need to add two zeros; with a while loop we can ensure that each hex digit pair will have 2 digits
+    while (hex_digits.length < 2) {
       hex_digits = '0' + hex_digits;
     }
     // Concatenate the 2 hex digits into the hex code string that will be returned at the end
     hexCode += hex_digits;
   }
   return hexCode;
-}
+};
 
-export {convert_to_RGB, convert_to_hex};
+export {
+  convert_to_RGB,
+  convert_to_hex
+}
