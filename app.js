@@ -107,9 +107,7 @@ const colorBtns = document.querySelectorAll('.color-btn');
 let selectedButton = "";
 let selectedColor;
 let rainbowIndex = 0; //index position that accesses rainbow color hex values;
-let red_increasing = true;
-let green_increasing = true;
-let blue_increasing = true;
+let RGB_increasing = [true, true, true]; //each boolean corresponds to R, G, and B and whether should be increasing in value or not
 
 // Footer logic
 const dateEl = document.getElementById('date');
@@ -156,52 +154,27 @@ function set_rainbow_colors(pixel) {
 
 */
 function set_gradient_colors(pixel) {
-  console.log(`Previous Color: ${selectedColor}`)
   let current_color_RGB = convert_to_RGB(selectedColor);
-  let red = current_color_RGB[0];
-  let green = current_color_RGB[1];
-  let blue = current_color_RGB[2];
-
-  
-  let change_factor = 1;
+  const CHANGE_FACTOR = 1; //change factor will be a random number from 1 to 3 Math.floor(Math.random() * 3) + 1;
 
   for (let i = 0; i < current_color_RGB.length; i++) { //decides whether a color component should be increasing or decreasing
-    if (current_color_RGB[i] + change_factor > 255) {
-      if (i == 0) {
-        red_increasing = false;
-      } else if (i == 1) {
-        green_increasing = false;
-      } else {
-        blue_increasing = false;
-      }
-    } else if (current_color_RGB[i] - change_factor < 0) {
-      if (i == 0) {
-        red_increasing = true;
-      } else if (i == 1) {
-        green_increasing = true;
-      } else {
-        blue_increasing = true;
-      }
+    if (current_color_RGB[i] + CHANGE_FACTOR > 255) {  //if incrementing the component goes over the rgb limit then we will start decrementing this component and vice versa
+      RGB_increasing[i] = false;
+    } else if (current_color_RGB[i] - CHANGE_FACTOR < 0) {
+      RGB_increasing[i] = true;
+    }
+
+    // Now that we've determined if we want to increment or decrement a component let's either increment or decrement them
+    if (RGB_increasing[i]) {
+      current_color_RGB[i] += CHANGE_FACTOR;
+    } else {
+      current_color_RGB[i] -= CHANGE_FACTOR;
     }
   }
-
-  if (red_increasing) {
-    current_color_RGB[0] += change_factor;
-  } else {
-    current_color_RGB[0] -= change_factor;
-  }
-
-  // Keeps on going for green and blue increasing
-
-
-
-  
-
-
-
+      
   // Then convert rgb back to hexadecimal; Now convert that pixel into that hex color, update the button text to reflect that color, and update the colorPicker to reflect that color
+  
   const CURRENT_HEX_COLOR = convert_to_hex(current_color_RGB);
-  console.log(`new color: ${CURRENT_HEX_COLOR}`)
   pixel.style.background = CURRENT_HEX_COLOR; // This sets the pixel to that new hex color, which will be slightly different from the previous literally incremented one value
   set_color_value(CURRENT_HEX_COLOR); // Call this function with the new color in order to update the button text, update the selected color in the javascript and update the color picker's color.
   
