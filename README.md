@@ -1,10 +1,4 @@
-Here’s a more polished and impressive version of your README write-up that includes a clear introduction, a feature list, and a call for collaboration:
-
----
-
 # Etch-a-Sketch
-
-
 
 ## Introduction
 Etch-a-Sketch is a fun and interactive web-based drawing tool inspired by the classic toy. Users can sketch freely by simply hovering over a customizable grid. Whether you're aiming to doodle, color in a pattern, or experiment with creative effects, this project makes it easy and engaging.
@@ -17,7 +11,7 @@ Etch-a-Sketch is a fun and interactive web-based drawing tool inspired by the cl
   - **Rainbow Mode** – Each stroke cycles through the colors of the rainbow.
   - **Gradient Mode** – Gradually darkens the color with every pass.
 - **Toggle Grid Lines** – Show or hide the grid borders for a clean or structured look.
-- **Eraser Tool** – Remove colors and reset grid cells with ease.
+- **Eraser Tool** – Remove colors and reset grid cells back to white.
 - **Smooth Coloring Animations** – Enjoy a polished, responsive drawing experience.
 
 ## Future Ideas
